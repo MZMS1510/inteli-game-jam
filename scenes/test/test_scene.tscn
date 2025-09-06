@@ -1,5 +1,7 @@
+
 [gd_scene load_steps=5 format=3 uid="uid://d3skk8ae5awp7"]
 
+[ext_resource type="PackedScene" uid="uid://17blte8wkyqm" path="res://scenes/ui/hud.tscn" id="2_4b6mq"]
 [ext_resource type="PackedScene" uid="uid://cgfnyiyomgyr2" path="res://scenes/entities/player/player.tscn" id="2_lpkca"]
 [ext_resource type="PackedScene" uid="uid://44pl00dmjnhj" path="res://scenes/entities/curupira/curupira.tscn" id="3_lpkca"]
 [ext_resource type="PackedScene" uid="uid://ck4q0kq8uf11" path="res://scenes/entities/test/dummy.tscn" id="3_omf4g"]
@@ -29,3 +31,9 @@ target_to_chase = NodePath("../Player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_lpkca")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_4b6mq")]
+
+[connection signal="sanity_changed" from="Player" to="CanvasLayer/HUD" method="_on_player_sanity_changed"]
