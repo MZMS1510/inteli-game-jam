@@ -1,12 +1,70 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgfnyiyomgyr2"]
+[gd_scene load_steps=9 format=3 uid="uid://cgfnyiyomgyr2"]
 
 [ext_resource type="Script" uid="uid://dp7uvayn5wxeb" path="res://scenes/entities/player/player.gd" id="1_635qg"]
-[ext_resource type="Texture2D" uid="uid://cgxi6fc1k1php" path="res://icon.svg" id="2_58kc7"]
+[ext_resource type="Texture2D" uid="uid://bhpv5jc0kw2ju" path="res://assets/woodchopper-full.png" id="2_58kc7"]
 [ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="3_58kc7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nh4ur"]
-radius = 45.0
-height = 110.0
+radius = 5.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_nh4ur"]
+resource_name = "idle_down"
+length = 1.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_bjvvg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8akj5"]
+resource_name = "idle_up"
+length = 1.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53, 54, 55]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bj7e2"]
+_data = {
+&"RESET": SubResource("Animation_bjvvg"),
+&"idle_down": SubResource("Animation_nh4ur"),
+&"idle_up": SubResource("Animation_8akj5")
+}
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("vision_renderer")]
 collision_layer = 3
@@ -18,8 +76,11 @@ alert_color = Color(0.796479, 0.422254, 1.15514e-06, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_58kc7")
+hframes = 16
+vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_nh4ur")
 
 [node name="VisionCone2D" parent="." instance=ExtResource("3_58kc7")]
@@ -28,6 +89,12 @@ scale = Vector2(0.993711, 1)
 angle_deg = 60
 ray_count = 55
 recalculate_if_static = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bj7e2")
+}
+autoplay = "idle_down"
 
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_entered"]
 [connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_exited"]
