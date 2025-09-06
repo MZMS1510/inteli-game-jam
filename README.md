@@ -3,7 +3,7 @@
 # Grupo
 
 - Lorena Garcia
-- Lucas Miguel
+- Lucas Michel
 - Luiz Hinuy
 - Marcos Vinicius
 - Teodoro Neira
