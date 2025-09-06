@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-@export var speed = 100
+@export var speed := 100
+@export var friction := 20
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
@@ -15,6 +16,6 @@ func _physics_process(_delta: float) -> void:
 		direction = direction.normalized()
 		velocity = direction * speed
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, 20)
-	
+		velocity = velocity.move_toward(Vector2.ZERO, friction)
+
 	move_and_slide()
