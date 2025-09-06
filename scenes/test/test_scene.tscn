@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3skk8ae5awp7"]
+[gd_scene load_steps=4 format=3 uid="uid://d3skk8ae5awp7"]
 
+[ext_resource type="PackedScene" uid="uid://17blte8wkyqm" path="res://scenes/ui/hud.tscn" id="2_4b6mq"]
 [ext_resource type="PackedScene" uid="uid://cgfnyiyomgyr2" path="res://scenes/entities/player/player.tscn" id="2_lpkca"]
 [ext_resource type="PackedScene" uid="uid://ck4q0kq8uf11" path="res://scenes/entities/test/dummy.tscn" id="3_omf4g"]
 
@@ -15,4 +16,9 @@ collision_mask = 3
 position = Vector2(80, 221)
 collision_layer = 1
 collision_mask = 1
-alert_color = Color(0.796479, 0.422254, 1.15514e-06, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_4b6mq")]
+
+[connection signal="sanity_changed" from="Player" to="CanvasLayer/HUD" method="_on_player_sanity_changed"]
