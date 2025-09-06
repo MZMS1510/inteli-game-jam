@@ -1,8 +1,21 @@
 extends CharacterBody2D
 
-@export var vision_renderer: Polygon2D
-@export var alert_color: Color
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@export var target_to_chase: CharacterBody2D
 
-func _on_vision_cone_area_body_entered(body: Node2D) -> void:
-	print("%s is seeing %s" % [self, body])
-	vision_renderer.color = alert_color
+const SPEED = 90
+
+func _ready() -> void:
+	set_physics_process(false)
+	call_deferred("wait_for_physics")
+	
+func wait_for_physics():
+	await get_tree().physics_frame
+	set_physics_process(true)
+
+func _physics_process(delta: float) -> void: 
+	if navigation_agent.is_navigation_finished() and target_to_chase.global_position == navigation_agent.target_position: 
+		return
+	navigation_agent.target_position = target_to_chase.global_position
+	velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * SPEED
+	move_and_slide()
