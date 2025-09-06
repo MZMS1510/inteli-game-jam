@@ -1,18 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgfnyiyomgyr2"]
+[gd_scene load_steps=5 format=3 uid="uid://cgfnyiyomgyr2"]
 
 [ext_resource type="Script" uid="uid://dp7uvayn5wxeb" path="res://scenes/entities/player/player.gd" id="1_635qg"]
 [ext_resource type="Texture2D" uid="uid://cgxi6fc1k1php" path="res://icon.svg" id="2_58kc7"]
+[ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="3_58kc7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nh4ur"]
 radius = 45.0
 height = 110.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("vision_renderer")]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_635qg")
 speed = 300
+vision_renderer = NodePath("VisionCone2D/VisionConeRenderer")
+alert_color = Color(0.796479, 0.422254, 1.15514e-06, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_58kc7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_nh4ur")
+
+[node name="VisionCone2D" parent="." instance=ExtResource("3_58kc7")]
+rotation = -1.5708
+scale = Vector2(0.993711, 1)
+angle_deg = 60
+ray_count = 55
+recalculate_if_static = false
+
+[connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_entered"]
+[connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_exited"]
+
+[editable path="VisionCone2D"]

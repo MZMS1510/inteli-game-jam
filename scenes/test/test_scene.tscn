@@ -1,7 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3skk8ae5awp7"]
+[gd_scene load_steps=4 format=3 uid="uid://d3skk8ae5awp7"]
 
 [ext_resource type="PackedScene" uid="uid://cgfnyiyomgyr2" path="res://scenes/entities/player/player.tscn" id="2_lpkca"]
+[ext_resource type="PackedScene" uid="uid://bulute7i5ksyy" path="res://addons/vision_cone_2d/examples/enemy.tscn" id="3_lpkca"]
+[ext_resource type="PackedScene" uid="uid://ck4q0kq8uf11" path="res://scenes/entities/test/dummy.tscn" id="3_omf4g"]
 
 [node name="TestScene" type="Node2D"]
 
+[node name="Enemy2" parent="." instance=ExtResource("3_lpkca")]
+position = Vector2(301, 621.695)
+rotation = -1.5708
+scale = Vector2(1.00479, 1)
+collision_layer = 3
+collision_mask = 3
+
+[node name="VisionCone2D" parent="Enemy2" index="1"]
+angle_deg = 45
+ray_count = 50
+max_distance = 700
+recalculate_if_static = true
+
+[node name="Explanation" type="Label" parent="Enemy2"]
+visible = false
+offset_left = 18.0
+offset_top = 13.0
+offset_right = 260.0
+offset_bottom = 39.0
+text = "Narrow vision cone (<360 deg)
+The target is rotating so the vision cone has to be recalculated even if the character is static
+Since the vision cone is smaller than the one with 360 vision, we can use less rays and save on performance"
+
+[node name="Dummy" parent="." instance=ExtResource("3_omf4g")]
+position = Vector2(1007, 427)
+scale = Vector2(0.667305, 2.17037)
+collision_layer = 3
+collision_mask = 3
+
 [node name="Player" parent="." instance=ExtResource("2_lpkca")]
+position = Vector2(167.272, 368.537)
+collision_layer = 1
+collision_mask = 1
+alert_color = Color(0.796479, 0.422254, 1.15514e-06, 1)
+
+[editable path="Enemy2"]
+[editable path="Enemy2/VisionCone2D"]
