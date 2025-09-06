@@ -12,3 +12,5 @@ position = Vector2(307, 173)
 
 [node name="HUD" parent="HUDLayer" instance=ExtResource("2_4b6mq")]
 top_level = true
+
+[connection signal="sanity_changed" from="Player" to="HUDLayer/HUD" method="_on_player_sanity_changed"]
