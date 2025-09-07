@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://b3dxsb10meiqf"
+path="res://.godot/imported/torchTrue.dialogue-d2ea4f3c245d999b39dd37e3348668e5.tres"
+
+[deps]
+
+source_file="res://dialogue/torchTrue.dialogue"
+dest_files=["res://.godot/imported/torchTrue.dialogue-d2ea4f3c245d999b39dd37e3348668e5.tres"]
+
+[params]
+
+defaults=true

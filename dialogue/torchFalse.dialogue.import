@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://i8yoe6horjjj"
+path="res://.godot/imported/torchFalse.dialogue-7ae64802174f78c98962fe8f7d8ee981.tres"
+
+[deps]
+
+source_file="res://dialogue/torchFalse.dialogue"
+dest_files=["res://.godot/imported/torchFalse.dialogue-7ae64802174f78c98962fe8f7d8ee981.tres"]
+
+[params]
+
+defaults=true

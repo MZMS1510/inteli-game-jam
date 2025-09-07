@@ -8,6 +8,7 @@ const SPEED = 90
 func _ready() -> void:
 	set_physics_process(false)
 	call_deferred("wait_for_physics")
+	target_to_chase = get_parent()
 	
 func wait_for_physics():
 	await get_tree().physics_frame

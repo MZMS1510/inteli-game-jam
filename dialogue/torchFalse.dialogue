@@ -1,0 +1,8 @@
+~ start
+???: Uma tocha, talvez eu devesse descansar por aqui...
+- Descansar
+	set State.enemySpawned = true
+	=> END
+- Continuar a explorar
+	???: Acho melhor continuar, não estou com um bom pressentimento...
+	=> END

@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://p6uha3ll1cqw"]
+
+[ext_resource type="Texture2D" uid="uid://c6xm610n0eimi" path="res://assets/torch.png" id="1_t1eer"]
+[ext_resource type="PackedScene" uid="uid://s5aql1x8735w" path="res://dialogue/actionable.tscn" id="2_skogl"]
+[ext_resource type="Resource" uid="uid://i8yoe6horjjj" path="res://dialogue/torchFalse.dialogue" id="3_t1eer"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qkjp"]
+atlas = ExtResource("1_t1eer")
+region = Rect2(0, 0, 16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw1gx"]
+atlas = ExtResource("1_t1eer")
+region = Rect2(16, 0, 16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m78ra"]
+atlas = ExtResource("1_t1eer")
+region = Rect2(32, 0, 16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65t2g"]
+atlas = ExtResource("1_t1eer")
+region = Rect2(48, 0, 16, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_emoku"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qkjp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iw1gx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m78ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65t2g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_mc5j5"]
+offsets = PackedFloat32Array(0, 0.753247)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7w1gx"]
+gradient = SubResource("Gradient_mc5j5")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g35o6"]
+size = Vector2(20, 49)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g8523"]
+
+[node name="torchFalse" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_emoku")
+frame_progress = 0.466874
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -13)
+color = Color(0.909804, 0.415686, 0, 1)
+energy = 3.0
+texture = SubResource("GradientTexture2D_7w1gx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_g35o6")
+
+[node name="Actionable" parent="." instance=ExtResource("2_skogl")]
+dialogue_resource = ExtResource("3_t1eer")
+remove = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actionable"]
+position = Vector2(0, -1)
+scale = Vector2(-2.15107, 3.11575)
+shape = SubResource("CircleShape2D_g8523")

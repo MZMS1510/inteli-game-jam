@@ -170,6 +170,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
+	DialogueManager._on_option_selected(response.text)
 	next(response.next_id)
 
 
