@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://dkhotlgxae1w7"]
+[gd_scene load_steps=9 format=4 uid="uid://dkhotlgxae1w7"]
 
 [ext_resource type="Texture2D" uid="uid://rq671yh8ykex" path="res://assets/tileset.png" id="1_mf6bh"]
 [ext_resource type="PackedScene" uid="uid://cgfnyiyomgyr2" path="res://scenes/entities/player/player.tscn" id="2_snq7e"]
-[ext_resource type="PackedScene" uid="uid://44pl00dmjnhj" path="res://scenes/entities/curupira/curupira.tscn" id="3_3y12p"]
+[ext_resource type="PackedScene" uid="uid://b1t4s2ldbu462" path="res://scenes/entities/torchTrue/torchTrue.tscn" id="3_3y12p"]
+[ext_resource type="PackedScene" uid="uid://p6uha3ll1cqw" path="res://scenes/entities/torchFalse/torchFalse.tscn" id="4_2grls"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snq7e"]
 texture = ExtResource("1_mf6bh")
@@ -566,12 +567,13 @@ tile_map_data = PackedByteArray("AAD6/w8AAAAAAAEAAAD6/xAAAAAAAAIAAAD6/xEAAAAAAAM
 tile_set = SubResource("TileSet_aqa7c")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 position = Vector2(1, 6)
 energy = 1.03
 blend_mode = 1
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit_left", "camera_limit_right") instance=ExtResource("2_snq7e")]
-position = Vector2(320, 167)
+position = Vector2(315, 167)
 camera_limit_left = NodePath("../LeftCameraLimit")
 camera_limit_right = NodePath("../RightCameraLimit")
 
@@ -581,6 +583,8 @@ position = Vector2(6384, -3104)
 [node name="LeftCameraLimit" type="Marker2D" parent="."]
 position = Vector2(-96, 736)
 
-[node name="Curupira" parent="." node_paths=PackedStringArray("target_to_chase") instance=ExtResource("3_3y12p")]
-position = Vector2(405, 181)
-target_to_chase = NodePath("../Player")
+[node name="torchTrue" parent="." instance=ExtResource("3_3y12p")]
+position = Vector2(1080, 110)
+
+[node name="torchFalse" parent="." instance=ExtResource("4_2grls")]
+position = Vector2(1438, 97)

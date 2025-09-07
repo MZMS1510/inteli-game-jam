@@ -1,10 +1,13 @@
 class_name Player
 extends CharacterBody2D
 
+
 @onready var original_color = vision_renderer.color if vision_renderer else Color.WHITE
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var point_light: PointLight2D = $PointLight2D
 @onready var camera: Camera2D = $Camera2D
+@onready var  actionable_finder: Area2D = $ActionableFinder
+@onready var enemy_scene = preload("res://scenes/entities/curupira/curupira.tscn")
 
 @export var speed = 100
 @export var friction := 20
@@ -38,13 +41,15 @@ func _on_vision_cone_area_body_exited(_body: Node2D) -> void:
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
-		DialogueManager.show_example_dialogue_balloon(load('res://dialogue/testDialogue.dialogue'), 'start')
-		return
+		var actionables = actionable_finder.get_overlapping_areas()
+		if actionables.size() > 0:
+			actionables[0].action()
+			return
 		
 func _process(delta: float) -> void:
 	set_sanity(sanity - delta)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:		
 	var direction := Vector2.ZERO
 	direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
 

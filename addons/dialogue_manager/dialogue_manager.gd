@@ -422,12 +422,21 @@ func create_resource_from_text(text: String) -> Resource:
 
 #region Balloon helpers
 
+var current_owner = null
 
 ## Show the example balloon
 func show_example_dialogue_balloon(resource: DialogueResource, title: String = "", extra_game_states: Array = []) -> CanvasLayer:
 	var balloon: Node = load(_get_example_balloon_path()).instantiate()
+	if extra_game_states.size() > 0:
+		current_owner = extra_game_states[0]
+	else:
+		current_owner = null
 	_start_balloon.call_deferred(balloon, resource, title, extra_game_states)
 	return balloon
+	
+func _on_option_selected(option):
+	if current_owner and current_owner.has_method("on_dialogue_option_selected"):	
+		current_owner.on_dialogue_option_selected(option)	
 
 
 ## Show the configured dialogue balloon
