@@ -1,8 +1,10 @@
 [gd_scene load_steps=19 format=3 uid="uid://cgfnyiyomgyr2"]
 
+
 [ext_resource type="Script" uid="uid://dp7uvayn5wxeb" path="res://scenes/entities/player/player.gd" id="1_635qg"]
 [ext_resource type="Texture2D" uid="uid://bhpv5jc0kw2ju" path="res://assets/woodchopper-full.png" id="2_58kc7"]
 [ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="3_58kc7"]
+[ext_resource type="Texture2D" uid="uid://cax57gal6ny21" path="res://assets/flashlight.png" id="4_nh4ur"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nh4ur"]
 radius = 8.0
@@ -280,6 +282,14 @@ scale = Vector2(0.993711, 1)
 angle_deg = 60
 ray_count = 55
 recalculate_if_static = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1045.44, 10.0231)
+rotation = -1.56869
+scale = Vector2(1, 1.77956)
+energy = 1.25
+texture = ExtResource("4_nh4ur")
+texture_scale = 9.75
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
