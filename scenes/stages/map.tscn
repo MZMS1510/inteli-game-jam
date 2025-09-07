@@ -533,4 +533,3 @@ blend_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_snq7e")]
 position = Vector2(142, 155)
-scale = Vector2(0.12, 0.12)
