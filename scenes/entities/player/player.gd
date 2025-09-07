@@ -4,11 +4,14 @@ extends CharacterBody2D
 @onready var original_color = vision_renderer.color if vision_renderer else Color.WHITE
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var point_light: PointLight2D = $PointLight2D
+@onready var camera: Camera2D = $Camera2D
 
 @export var speed = 100
 @export var friction := 20
 @export var vision_renderer: Polygon2D
 @export var alert_color: Color
+@export var camera_limit_left: Marker2D
+@export var camera_limit_right: Marker2D
 
 signal sanity_changed(new_value: float)
 
@@ -19,6 +22,13 @@ func _ready():
 	point_light.rotation = Vector2.DOWN.angle() - PI/2
 	point_light.position = Vector2.DOWN.normalized() * offset_distance
 	sanity = 100
+
+	print("Camera limits: left=%s, right=%s" % [camera_limit_left.position, camera_limit_right.position])
+
+	camera.limit_left = floor(camera_limit_left.position.x)
+	camera.limit_right = floor(camera_limit_right.position.x)
+	camera.limit_top = floor(camera_limit_right.position.y)
+	camera.limit_bottom = floor(camera_limit_left.position.y)
 
 func _on_vision_cone_area_body_entered(body: Node2D) -> void:
 	print("%s is seeing %s" % [self, body])
