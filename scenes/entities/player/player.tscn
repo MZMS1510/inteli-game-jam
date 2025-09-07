@@ -295,6 +295,8 @@ libraries = {
 }
 autoplay = "idle_down"
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_entered"]
 [connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_exited"]
 
