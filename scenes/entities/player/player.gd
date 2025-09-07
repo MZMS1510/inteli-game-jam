@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 @onready var original_color = vision_renderer.color if vision_renderer else Color.WHITE
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed = 100
 @export var friction := 20
@@ -34,7 +35,43 @@ func _process(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	var direction := Vector2.ZERO
 	direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
-	
+
+	$Sprite2D.flip_h = false
+	if direction == Vector2.ZERO:
+		match animation_player.current_animation:
+			"walk_down":
+				animation_player.play("idle_down")
+			"walk_up":
+				animation_player.play("idle_up")
+			"walk_left_down":
+				animation_player.play("idle_left_down")
+			"walk_left_up":
+				animation_player.play("idle_left_up")
+			"walk_right_down":
+				animation_player.play("idle_right_down")
+			"walk_right_up":
+				animation_player.play("idle_right_up")
+			_:
+				animation_player.play(animation_player.current_animation)
+	elif direction == Vector2.UP:
+		animation_player.play("walk_up")
+	elif direction == Vector2.DOWN:
+		animation_player.play("walk_down")
+	elif direction == Vector2.LEFT:
+		animation_player.play("walk_left_down")
+	elif direction == Vector2.RIGHT:
+		$Sprite2D.flip_h = true
+		animation_player.play("walk_right_down")
+	elif direction.normalized() == (Vector2.LEFT + Vector2.UP).normalized():
+		animation_player.play("walk_left_up")
+	elif direction.normalized() == (Vector2.LEFT + Vector2.DOWN).normalized():
+		animation_player.play("walk_left_down")
+	elif direction.normalized() == (Vector2.RIGHT + Vector2.UP).normalized():
+		animation_player.play("walk_right_up")
+	elif direction.normalized() == (Vector2.RIGHT + Vector2.DOWN).normalized():
+		$Sprite2D.flip_h = true
+		animation_player.play("walk_right_down")
+
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
 		velocity = direction * speed
