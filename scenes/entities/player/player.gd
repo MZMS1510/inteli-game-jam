@@ -13,9 +13,11 @@ extends CharacterBody2D
 signal sanity_changed(new_value: float)
 
 var sanity: float: set = set_sanity, get = get_sanity
-var last_direction := Vector2.DOWN  # Começa olhando para baixo
 
 func _ready():
+	var offset_distance := 210
+	point_light.rotation = Vector2.DOWN.angle() - PI/2
+	point_light.position = Vector2.DOWN.normalized() * offset_distance
 	sanity = 100
 
 func _on_vision_cone_area_body_entered(body: Node2D) -> void:
@@ -30,61 +32,61 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		DialogueManager.show_example_dialogue_balloon(load('res://dialogue/testDialogue.dialogue'), 'start')
 		return
-
+		
 func _process(delta: float) -> void:
 	set_sanity(sanity - delta)
 
 func _physics_process(_delta: float) -> void:
-	var direction := Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
+	var direction := Vector2.ZERO
+	direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
+
+	# Jeito mais porco possível de mudar a animação
+	# Usar blend spaces ou algo do tipo seria mais elegante
 	$Sprite2D.flip_h = false
+	if direction == Vector2.ZERO:
+		match animation_player.current_animation:
+			"walk_down":
+				animation_player.play("idle_down")
+			"walk_up":
+				animation_player.play("idle_up")
+			"walk_left_down":
+				animation_player.play("idle_left_down")
+			"walk_left_up":
+				animation_player.play("idle_left_up")
+			"walk_right_down":
+				animation_player.play("idle_right_down")
+			"walk_right_up":
+				animation_player.play("idle_right_up")
+			_:
+				animation_player.play(animation_player.current_animation)
+	elif direction == Vector2.UP:
+		animation_player.play("walk_up")
+	elif direction == Vector2.DOWN:
+		animation_player.play("walk_down")
+	elif direction == Vector2.LEFT:
+		animation_player.play("walk_left_down")
+	elif direction == Vector2.RIGHT:
+		$Sprite2D.flip_h = true
+		animation_player.play("walk_right_down")
+	elif direction.normalized() == (Vector2.LEFT + Vector2.UP).normalized():
+		animation_player.play("walk_left_up")
+	elif direction.normalized() == (Vector2.LEFT + Vector2.DOWN).normalized():
+		animation_player.play("walk_left_down")
+	elif direction.normalized() == (Vector2.RIGHT + Vector2.UP).normalized():
+		animation_player.play("walk_right_up")
+	elif direction.normalized() == (Vector2.RIGHT + Vector2.DOWN).normalized():
+		$Sprite2D.flip_h = true
+		animation_player.play("walk_right_down")
+
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
+		var offset_distance := 210
+		point_light.rotation = direction.angle() - PI/2
+		point_light.position = direction.normalized() * offset_distance
 		velocity = direction * speed
-		last_direction = direction
-		# Animações de movimento
-		if direction == Vector2.UP:
-			animation_player.play("walk_up")
-		elif direction == Vector2.DOWN:
-			animation_player.play("walk_down")
-		elif direction == Vector2.LEFT:
-			animation_player.play("walk_left_down")
-		elif direction == Vector2.RIGHT:
-			$Sprite2D.flip_h = true
-			animation_player.play("walk_right_down")
-		elif direction.normalized() == (Vector2.LEFT + Vector2.UP).normalized():
-			animation_player.play("walk_left_up")
-		elif direction.normalized() == (Vector2.LEFT + Vector2.DOWN).normalized():
-			animation_player.play("walk_left_down")
-		elif direction.normalized() == (Vector2.RIGHT + Vector2.UP).normalized():
-			animation_player.play("walk_right_up")
-		elif direction.normalized() == (Vector2.RIGHT + Vector2.DOWN).normalized():
-			$Sprite2D.flip_h = true
-			animation_player.play("walk_right_down")
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, friction)
-		# Animações idle
-		if last_direction == Vector2.UP:
-			animation_player.play("idle_up")
-		elif last_direction == Vector2.DOWN:
-			animation_player.play("idle_down")
-		elif last_direction == Vector2.LEFT:
-			animation_player.play("idle_left_down")
-		elif last_direction == Vector2.RIGHT:
-			$Sprite2D.flip_h = true
-			animation_player.play("idle_right_down")
-		elif last_direction.normalized() == (Vector2.LEFT + Vector2.UP).normalized():
-			animation_player.play("idle_left_up")
-		elif last_direction.normalized() == (Vector2.LEFT + Vector2.DOWN).normalized():
-			animation_player.play("idle_left_down")
-		elif last_direction.normalized() == (Vector2.RIGHT + Vector2.UP).normalized():
-			animation_player.play("idle_right_up")
-		elif last_direction.normalized() == (Vector2.RIGHT + Vector2.DOWN).normalized():
-			$Sprite2D.flip_h = true
-			animation_player.play("idle_right_down")
-	# Sempre atualize a lanterna com base na última direção válida
-	var offset_distance := 210
-	point_light.rotation = last_direction.angle() - PI/2
-	point_light.position = last_direction.normalized() * offset_distance
+
 	move_and_slide()
 
 func set_sanity(value: float) -> void:
