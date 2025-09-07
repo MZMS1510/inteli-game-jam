@@ -1,33 +1,92 @@
-[gd_scene load_steps=5 format=3 uid="uid://44pl00dmjnhj"]
+[gd_scene load_steps=11 format=3 uid="uid://44pl00dmjnhj"]
 
 [ext_resource type="Script" uid="uid://dmmxrlifbb5ig" path="res://scenes/entities/curupira/curupira.gd" id="1_jqsci"]
-[ext_resource type="Texture2D" uid="uid://cptjb58b56ipm" path="res://addons/vision_cone_2d/icon.png" id="2_jqsci"]
+[ext_resource type="Texture2D" uid="uid://dcab1d07rch2g" path="res://assets/idle_curupira.png" id="2_t8wdx"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_47mdb"]
-radius = 76.99
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqsci"]
+atlas = ExtResource("2_t8wdx")
+region = Rect2(0, 0, 16, 34)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_6lwxt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_47mdb"]
+atlas = ExtResource("2_t8wdx")
+region = Rect2(16, 0, 16, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lwxt"]
+atlas = ExtResource("2_t8wdx")
+region = Rect2(32, 0, 16, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjq4r"]
+atlas = ExtResource("2_t8wdx")
+region = Rect2(0, 102, 16, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hajf5"]
+atlas = ExtResource("2_t8wdx")
+region = Rect2(16, 102, 16, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uswod"]
+atlas = ExtResource("2_t8wdx")
+region = Rect2(32, 102, 16, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4iuqc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_jqsci")
+"texture": SubResource("AtlasTexture_jqsci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47mdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lwxt")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqsci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47mdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lwxt")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjq4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hajf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uswod")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
 }]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dmnd8"]
+radius = 6.0
+height = 32.0
 
 [node name="Curupira" type="CharacterBody2D"]
 script = ExtResource("1_jqsci")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-66, 66)
-shape = SubResource("CircleShape2D_47mdb")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-63, 67)
-scale = Vector2(0.589844, 0.597656)
-sprite_frames = SubResource("SpriteFrames_6lwxt")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4iuqc")
+animation = &"idle_up"
+frame_progress = 0.547495
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_dmnd8")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 navigation_layers = 3

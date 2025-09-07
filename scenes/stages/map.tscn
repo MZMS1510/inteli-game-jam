@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://dkhotlgxae1w7"]
+[gd_scene load_steps=8 format=4 uid="uid://dkhotlgxae1w7"]
 
 [ext_resource type="Texture2D" uid="uid://rq671yh8ykex" path="res://assets/tileset.png" id="1_mf6bh"]
 [ext_resource type="PackedScene" uid="uid://cgfnyiyomgyr2" path="res://scenes/entities/player/player.tscn" id="2_snq7e"]
+[ext_resource type="PackedScene" uid="uid://44pl00dmjnhj" path="res://scenes/entities/curupira/curupira.tscn" id="3_3y12p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snq7e"]
 texture = ExtResource("1_mf6bh")
@@ -579,3 +580,7 @@ position = Vector2(6384, -3104)
 
 [node name="LeftCameraLimit" type="Marker2D" parent="."]
 position = Vector2(-96, 736)
+
+[node name="Curupira" parent="." node_paths=PackedStringArray("target_to_chase") instance=ExtResource("3_3y12p")]
+position = Vector2(405, 181)
+target_to_chase = NodePath("../Player")
