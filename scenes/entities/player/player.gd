@@ -18,12 +18,10 @@ signal sanity_changed(new_value: float)
 var sanity: float: set = set_sanity, get = get_sanity
 
 func _ready():
-	var offset_distance := 210
+	var offset_distance := 180
 	point_light.rotation = Vector2.DOWN.angle() - PI/2
 	point_light.position = Vector2.DOWN.normalized() * offset_distance
 	sanity = 100
-
-	print("Camera limits: left=%s, right=%s" % [camera_limit_left.position, camera_limit_right.position])
 
 	camera.limit_left = floor(camera_limit_left.position.x)
 	camera.limit_right = floor(camera_limit_right.position.x)
@@ -90,7 +88,7 @@ func _physics_process(_delta: float) -> void:
 
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
-		var offset_distance := 210
+		var offset_distance := 180
 		point_light.rotation = direction.angle() - PI/2
 		point_light.position = direction.normalized() * offset_distance
 		velocity = direction * speed
