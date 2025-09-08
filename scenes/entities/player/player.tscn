@@ -305,6 +305,7 @@ libraries = {
 autoplay = "idle_down"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
 [node name="ActionableFinder" type="Area2D" parent="."]
 collision_layer = 0
