@@ -12,6 +12,7 @@ extends CharacterBody2D
 @export var speed = 100
 @export var friction := 20
 @export var vision_renderer: Polygon2D
+@export var visionConeArea: Area2D
 @export var alert_color: Color
 @export var camera_limit_left: Marker2D
 @export var camera_limit_right: Marker2D
@@ -20,19 +21,32 @@ signal sanity_changed(new_value: float)
 
 var sanity: float: set = set_sanity, get = get_sanity
 
+
+
 func _ready():
+	print("camera_limit_left: ", camera_limit_left)
+	print("camera_limit_right: ", camera_limit_right)
+
 	var offset_distance := 180
 	point_light.rotation = Vector2.DOWN.angle() - PI/2
 	point_light.position = Vector2.DOWN.normalized() * offset_distance
 	sanity = 100
+	call_deferred("_setup_camera_limits")
 
-	camera.limit_left = floor(camera_limit_left.position.x)
-	camera.limit_right = floor(camera_limit_right.position.x)
-	camera.limit_top = floor(camera_limit_right.position.y)
-	camera.limit_bottom = floor(camera_limit_left.position.y)
-
+func _setup_camera_limits():
+	if camera_limit_left and camera_limit_right:
+		camera.limit_left = floor(camera_limit_left.position.x)
+		camera.limit_right = floor(camera_limit_right.position.x)
+		camera.limit_top = floor(camera_limit_right.position.y)
+		camera.limit_bottom = floor(camera_limit_left.position.y)
+	else:
+		print("Algum marker está nulo!")
 func _on_vision_cone_area_body_entered(body: Node2D) -> void:
 	print("%s is seeing %s" % [self, body])
+	if body.name == "Curupira":
+		print("BIZARRO")
+		State.enemyAlive = false
+		
 	vision_renderer.color = alert_color
 
 func _on_vision_cone_area_body_exited(_body: Node2D) -> void:
@@ -96,6 +110,14 @@ func _physics_process(_delta: float) -> void:
 		var offset_distance := 180
 		point_light.rotation = direction.angle() - PI/2
 		point_light.position = direction.normalized() * offset_distance
+
+
+		if vision_renderer:
+			vision_renderer.rotation = direction.angle() 
+			vision_renderer.position = direction.normalized() 
+		if visionConeArea:
+			visionConeArea.rotation = direction.angle()
+			visionConeArea.position = direction.normalized()
 		velocity = direction * speed
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, friction)

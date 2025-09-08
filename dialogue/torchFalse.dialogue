@@ -1,7 +1,10 @@
 ~ start
 ???: Uma tocha, talvez eu devesse descansar por aqui...
 - Descansar
-	set State.enemySpawned = true
+	set State.spawnX = 50
+	set State.spawnY = 0
+	set State.enemySpawn = true
+	
 	=> END
 - Continuar a explorar
 	???: Acho melhor continuar, não estou com um bom pressentimento...
