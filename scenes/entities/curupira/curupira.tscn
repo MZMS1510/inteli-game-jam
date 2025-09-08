@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://44pl00dmjnhj"]
 
 [ext_resource type="Script" uid="uid://dmmxrlifbb5ig" path="res://scenes/entities/curupira/curupira.gd" id="1_jqsci"]
-[ext_resource type="Texture2D" uid="uid://dcab1d07rch2g" path="res://assets/idle_curupira.png" id="2_t8wdx"]
+[ext_resource type="Texture2D" uid="uid://baxs0mvy4sp0r" path="res://assets/idle_curupira.png" id="2_t8wdx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqsci"]
 atlas = ExtResource("2_t8wdx")
