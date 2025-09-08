@@ -5,3 +5,4 @@ var spawnY = 10000
 var enemySpawn = false
 var enemyAlive = false
 var enemyHasReturned = false
+var sanityToUpdate = false 

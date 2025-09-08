@@ -22,16 +22,13 @@ signal sanity_changed(new_value: float)
 
 var sanity: float: set = set_sanity, get = get_sanity
 
-var step_sound_player = AudioStreamPlayer2D.new()
-
 
 func _ready():
 	sanity = 100
-
+	var step_sound_player = AudioStreamPlayer2D.new()
 	step_sound.loop = true
 	step_sound_player.stream = step_sound
 	add_child(step_sound_player)
-
 	var offset_distance := 180
 	point_light.rotation = Vector2.DOWN.angle() - PI/2
 	point_light.position = Vector2.DOWN.normalized() * offset_distance
@@ -66,6 +63,9 @@ func _unhandled_input(_event: InputEvent) -> void:
 			return
 		
 func _process(delta: float) -> void:
+	if State.sanityToUpdate == true:
+		sanity = sanity + 20
+		State.sanityToUpdate = false
 	set_sanity(sanity - delta)
 
 func _physics_process(_delta: float) -> void:		

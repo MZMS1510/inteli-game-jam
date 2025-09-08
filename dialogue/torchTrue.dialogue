@@ -2,7 +2,7 @@
 ???: Uma tocha, talvez eu devesse descansar por aqui...
 - Descansar
 	Sua sanidade foi recuperada!
-	#Aumentar a sanidade !!!
+	set State.sanityToUpdate = true
 	=> END
 - Continuar a explorar
 	???: Acho melhor continuar, não estou com um bom pressentimento...
