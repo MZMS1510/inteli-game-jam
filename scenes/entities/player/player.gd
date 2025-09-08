@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var camera: Camera2D = $Camera2D
 @onready var  actionable_finder: Area2D = $ActionableFinder
 @onready var enemy_scene = preload("res://scenes/entities/curupira/curupira.tscn")
+@onready var step_sound = preload("res://assets/sounds/step.ogg")
 
 @export var speed = 100
 @export var friction := 20
@@ -21,10 +22,13 @@ signal sanity_changed(new_value: float)
 
 var sanity: float: set = set_sanity, get = get_sanity
 
+
 func _ready():
-	print("camera_limit_left: ", camera_limit_left)
-	print("camera_limit_right: ", camera_limit_right)
 	sanity = 100
+	var step_sound_player = AudioStreamPlayer2D.new()
+	step_sound.loop = true
+	step_sound_player.stream = step_sound
+	add_child(step_sound_player)
 	var offset_distance := 180
 	point_light.rotation = Vector2.DOWN.angle() - PI/2
 	point_light.position = Vector2.DOWN.normalized() * offset_distance
@@ -38,6 +42,7 @@ func _setup_camera_limits():
 		camera.limit_bottom = floor(camera_limit_left.position.y)
 	else:
 		print("Algum marker está nulo!")
+
 func _on_vision_cone_area_body_entered(body: Node2D) -> void:
 	print("%s is seeing %s" % [self, body])
 	if body.name == "Curupira":
@@ -71,6 +76,7 @@ func _physics_process(_delta: float) -> void:
 	# Usar blend spaces ou algo do tipo seria mais elegante
 	$Sprite2D.flip_h = false
 	if direction == Vector2.ZERO:
+		step_sound_player.stop()
 		match animation_player.current_animation:
 			"walk_down":
 				animation_player.play("idle_down")
@@ -106,6 +112,9 @@ func _physics_process(_delta: float) -> void:
 		animation_player.play("walk_right_down")
 
 	if direction != Vector2.ZERO:
+		if not step_sound_player.playing:
+			step_sound_player.pitch_scale = randf_range(0.8, 1.2)
+			step_sound_player.play()
 		direction = direction.normalized()
 		var offset_distance := 180
 		point_light.rotation = direction.angle() - PI/2
