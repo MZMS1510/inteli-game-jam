@@ -21,16 +21,13 @@ signal sanity_changed(new_value: float)
 
 var sanity: float: set = set_sanity, get = get_sanity
 
-
-
 func _ready():
 	print("camera_limit_left: ", camera_limit_left)
 	print("camera_limit_right: ", camera_limit_right)
-
+	sanity = 100
 	var offset_distance := 180
 	point_light.rotation = Vector2.DOWN.angle() - PI/2
 	point_light.position = Vector2.DOWN.normalized() * offset_distance
-	sanity = 100
 	call_deferred("_setup_camera_limits")
 
 func _setup_camera_limits():
@@ -61,6 +58,9 @@ func _unhandled_input(_event: InputEvent) -> void:
 			return
 		
 func _process(delta: float) -> void:
+	if State.sanityToUpdate == true:
+		sanity = sanity + 20
+		State.sanityToUpdate = false
 	set_sanity(sanity - delta)
 
 func _physics_process(_delta: float) -> void:		

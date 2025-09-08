@@ -565,6 +565,7 @@ tile_map_data = PackedByteArray("AAD6/w8AAAAAAAEAAAD6/xAAAAAAAAIAAAD6/xEAAAAAAAM
 tile_set = SubResource("TileSet_aqa7c")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 position = Vector2(1, 6)
 energy = 1.03
 blend_mode = 1
