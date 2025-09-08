@@ -24,7 +24,7 @@ var sanity: float: set = set_sanity, get = get_sanity
 var step_sound_player: AudioStreamPlayer2D
 
 func _ready():
-	sanity = 100
+	sanity = 80
 	
 	step_sound_player = AudioStreamPlayer2D.new()
 	step_sound.loop = true
@@ -136,6 +136,8 @@ func _physics_process(_delta: float) -> void:
 
 func set_sanity(value: float) -> void:
 	sanity = clamp(value, 0, 100)
+	if sanity <= 0:
+		get_tree().change_scene_to_file("res://scenes/stages/game_over.tscn")
 	emit_signal("sanity_changed", sanity)
 
 func get_sanity() -> float:

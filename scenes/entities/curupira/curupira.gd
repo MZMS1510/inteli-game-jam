@@ -13,8 +13,9 @@ func _ready() -> void:
 func wait_for_physics():
 	await get_tree().physics_frame
 	set_physics_process(true)
-
+	
 func _physics_process(delta: float) -> void: 
+	print(global_position)
 	if State.enemyAlive == false && State.enemyHasReturned == false:
 		global_position = Vector2(10000, 10000)
 		State.enemyHasReturned = true
@@ -30,3 +31,10 @@ func _physics_process(delta: float) -> void:
 	navigation_agent.target_position = target_to_chase.global_position
 	velocity = global_position.direction_to(navigation_agent.get_next_path_position()) * SPEED
 	move_and_slide()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	
+	if body is Player:
+		print("AAAAAAAIIIIIIIIIIIII")
+		get_tree().change_scene_to_file("res://scenes/stages/game_over.tscn")

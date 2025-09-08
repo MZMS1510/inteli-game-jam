@@ -285,7 +285,7 @@ rotation = -1.5708
 scale = Vector2(0.993711, 1)
 angle_deg = 30
 ray_count = 55
-max_distance = 400.0
+max_distance = 200.555
 recalculate_if_static = false
 
 [node name="DebugDraw" parent="VisionCone2D" index="2"]
