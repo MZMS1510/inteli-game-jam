@@ -1289,8 +1289,8 @@ position = Vector2(2118, 2212)
 navigation_polygon = SubResource("NavigationPolygon_n5g6v")
 
 [node name="Curupira" parent="." node_paths=PackedStringArray("target_to_chase") instance=ExtResource("5_aqa7c")]
-position = Vector2(-777, 1672)
-scale = Vector2(3.565, 3.565)
+position = Vector2(-735, 1545)
+scale = Vector2(-5.63692, 5.70522)
 target_to_chase = NodePath("../Player")
 
 [connection signal="sanity_changed" from="Player" to="CanvasLayer/HUD" method="_on_player_sanity_changed"]
