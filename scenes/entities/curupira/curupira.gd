@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @export var target_to_chase: CharacterBody2D
 
-const SPEED = 90
+const SPEED = 150
 
 func _ready() -> void:
 
