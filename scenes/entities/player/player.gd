@@ -76,7 +76,6 @@ func _physics_process(_delta: float) -> void:
 	# Usar blend spaces ou algo do tipo seria mais elegante
 	$Sprite2D.flip_h = false
 	if direction == Vector2.ZERO:
-		step_sound_player.stop()
 		match animation_player.current_animation:
 			"walk_down":
 				animation_player.play("idle_down")
@@ -112,9 +111,7 @@ func _physics_process(_delta: float) -> void:
 		animation_player.play("walk_right_down")
 
 	if direction != Vector2.ZERO:
-		if not step_sound_player.playing:
-			step_sound_player.pitch_scale = randf_range(0.8, 1.2)
-			step_sound_player.play()
+
 		direction = direction.normalized()
 		var offset_distance := 180
 		point_light.rotation = direction.angle() - PI/2
