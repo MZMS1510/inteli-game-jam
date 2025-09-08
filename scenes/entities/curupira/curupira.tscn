@@ -583,8 +583,9 @@ script = ExtResource("1_jqsci")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_4iuqc")
-animation = &"walk_right_up"
+animation = &"idle_down"
 autoplay = "idle_down"
+frame_progress = 0.355984
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_dmnd8")

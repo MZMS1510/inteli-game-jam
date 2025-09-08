@@ -1,12 +1,15 @@
 extends Control
 
 @onready var start_button: Button = $StartButton
+@onready var quit_button: Button = $QuitButton
 @onready var music: AudioStreamPlayer = $AudioStreamPlayer
 
 @export var next_scene: PackedScene = preload("res://scenes/stages/map.tscn")
 
 func _ready() -> void:
   start_button.pressed.connect(_on_start_button_pressed)
+  quit_button.pressed.connect(get_tree().quit)
+
 
 func _on_start_button_pressed() -> void:
   var music_tween := create_tween()
