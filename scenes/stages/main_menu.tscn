@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://chvwqi84n0wlb"]
+[gd_scene load_steps=3 format=3 uid="uid://chvwqi84n0wlb"]
 
-[ext_resource type="Script" path="res://scenes/stages/main_menu.gd" id="1_t0ku7"]
+[ext_resource type="Script" uid="uid://mdgymy6k2gqf" path="res://scenes/stages/main_menu.gd" id="1_t0ku7"]
+[ext_resource type="AudioStream" uid="uid://b2bgxa1poulnv" path="res://assets/sounds/main_menu.wav" id="2_0f6co"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -49,3 +50,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Kaá-apé"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0f6co")
+autoplay = true
