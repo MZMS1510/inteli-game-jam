@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=4 uid="uid://dkhotlgxae1w7"]
+[gd_scene load_steps=22 format=4 uid="uid://dkhotlgxae1w7"]
 
-[ext_resource type="Script" uid="uid://y4hm8xn46sb3" path="res://scenes/stages/map.gd" id="1_8uaba"]
+[ext_resource type="Script" path="res://scenes/stages/map.gd" id="1_8uaba"]
 [ext_resource type="Texture2D" uid="uid://rq671yh8ykex" path="res://assets/tileset.png" id="1_mf6bh"]
 [ext_resource type="PackedScene" uid="uid://cgfnyiyomgyr2" path="res://scenes/entities/player/player.tscn" id="2_snq7e"]
 [ext_resource type="PackedScene" uid="uid://b1t4s2ldbu462" path="res://scenes/entities/torchTrue/torchTrue.tscn" id="3_3y12p"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://17blte8wkyqm" path="res://scenes/ui/hud.tscn" id="6_e61ow"]
 [ext_resource type="Texture2D" uid="uid://cigcwsdh2mq6x" path="res://assets/tilesetMap.png" id="7_n5g6v"]
 [ext_resource type="AudioStream" uid="uid://cjbvt0siidchy" path="res://assets/sounds/gameplay_music.wav" id="9_14gwk"]
+[ext_resource type="PackedScene" uid="uid://dcrplarf280x1" path="res://scenes/entities/machado.tscn" id="10_14gwk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vyhd"]
 texture = ExtResource("1_mf6bh")
@@ -1242,7 +1243,6 @@ position = Vector2(4031, 1)
 position = Vector2(2, 2871)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
 position = Vector2(1, 6)
 energy = 1.03
 blend_mode = 1
@@ -1313,6 +1313,10 @@ position = Vector2(3425, 2097)
 
 [node name="torchTrue3" parent="Torches" instance=ExtResource("3_3y12p")]
 position = Vector2(2118, 2212)
+
+[node name="machado" parent="." instance=ExtResource("10_14gwk")]
+position = Vector2(3415, 445)
+scale = Vector2(0.641544, 0.734338)
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="sanity_changed" from="Player" to="CanvasLayer/HUD" method="_on_player_sanity_changed"]

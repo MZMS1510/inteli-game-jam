@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcrplarf280x1"]
+
+[ext_resource type="Texture2D" uid="uid://bkh5tympsryt8" path="res://assets/machado.png" id="1_pgr0k"]
+[ext_resource type="Script" uid="uid://0of5y21f1au5" path="res://scenes/entities/machado.gd" id="1_stkip"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stkip"]
+radius = 16.4639
+
+[sub_resource type="Gradient" id="Gradient_pgr0k"]
+offsets = PackedFloat32Array(0.298701, 0.558442, 0.987013, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0.155555, 0.155555, 0.155555, 1, 0.116667, 0.116667, 0.116667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_stkip"]
+gradient = SubResource("Gradient_pgr0k")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.495413)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgr0k"]
+size = Vector2(199, 147)
+
+[node name="machado" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_stkip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(-4.36143, -2.61827)
+shape = SubResource("CircleShape2D_stkip")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 2.28464
+scale = Vector2(5.46723, 4.02862)
+texture = ExtResource("1_pgr0k")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 1.29
+texture = SubResource("GradientTexture2D_stkip")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4.5, 3.5)
+shape = SubResource("RectangleShape2D_pgr0k")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
